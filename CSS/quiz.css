@@ -1,0 +1,47 @@
+.navbar{
+        background: rgba(255,255,255,0) !important;
+       }
+
+body{
+    background-color: black !important;
+}
+
+#info:hover, #quiz:hover, #aboutsite:hover{
+    background-color:lightslategrey !important;
+}
+
+.jumbotron {
+    margin-top:100px;
+    width:100%;
+    background: rgba(255,255,255,0) !important;
+    color: white !important;
+    border-style: solid !important;
+    border-width: 3px !important;
+    border-color: white !important;
+    text-align:center;
+}
+
+
+
+.container{
+    /*color:white;
+    margin-bottom: 5px;*/
+    background: rgba(255,255,255,0) !important;
+    /*color: white !important;*/
+}
+
+#submit {
+    color: black !important;
+}
+
+.item div {
+    background: rgba(255,255,255,0) !important;
+    color: white !important;
+    border-style: solid !important;
+    border-width: 3px !important;
+    border-color: green !important;
+}
+
+.item input {
+	color: black !important;
+}

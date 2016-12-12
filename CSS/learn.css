@@ -1,0 +1,33 @@
+.navbar{
+        background: rgba(255,255,255,0) !important;
+       }
+
+body{
+    background-color: black !important;
+}
+
+#info:hover, #quiz:hover, #aboutsite:hover{
+    background-color:lightslategrey !important;
+}
+
+/*.carousel-inner > .item > img{
+    width:100% !important;
+    height: 600px !important;
+}
+
+.jumbotron {
+    margin-top:100px;
+    width:100%;
+    background: rgba(255,255,255,0) !important;
+    color: white !important;
+    border-style: solid !important;
+    border-width: 3px !important;
+    border-color: white !important;
+    float:left;
+    text-align:center;
+}
+*/
+#helpme {
+    width: 55%;
+    height:55%;
+}

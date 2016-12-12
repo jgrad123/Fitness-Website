@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+    <head>
+
+          <title>Fitness Website</title>
+          <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <link rel = "stylesheet" href = "../CSS/quiz.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase.js"></script>
+          <script src="mustache.js"></script>  
+          <script id="myTemplate" type="text/template"> 
+          <div class="item">
+          	<div class="panel panel-default">
+            	<div class="panel-heading">{{data.question}}</div>
+                	<div class="panel-body">
+                   		<div>A) {{data.A}}</div>
+                        <div>B) {{data.B}}</div>
+                        <div>C) {{data.C}}</div>
+                        <div>D) {{data.D}}</div>
+                        <input type="text" id="{{key}}" placeholder="Answer">
+                        <input type="button" value="Submit" onclick="ansCheck('{{key}}');" id="{{key}}subE"/>
+                        <p id="{{key}}done"> Done: NO </p>
+                    </div>
+            </div>
+           </div>
+          </script>
+    
+    <script>
+            var config = {
+                apiKey: "AIzaSyCVjHNhnvW4NpFGs9NXWeWcCr-oTkyyqZw",
+                databaseURL: "https://quizquestions-7f312.firebaseio.com",
+            };
+            firebase.initializeApp(config);
+
+            // Get a reference to the database service
+           var database = firebase.database().ref('questions');
+           var data, build;
+           var myTemplate = $("#myTemplate").html()
+           database.on('value',function(snapshot){
+               build = "";
+               data = snapshot.val();
+               for(key in data){
+                    build += Mustache.render(myTemplate,{key:key, data:data[key]});
+                    //console.log(data[key]);
+                }
+                $("#output").html(build);
+           })
+           
+           var corrAmu = 0;
+           var incorrAmu = 0;
+           var score = 0;
+           
+           function ansCheck (key){
+		     if(document.getElementById(key).value == data[key].answer){
+				console.log("Correct");
+				corrAmu ++;
+				document.getElementById(key + "done").innerHTML = "Correct";
+				//document.getElementById("{{key}}").style.color = "green";
+				document.getElementById(key + "subE").style.display = "none";
+			 }
+			 
+			 else {
+			 	incorrAmu ++;
+			 	document.getElementById(key + "done").innerHTML = "Incorrect";
+			 }
+           }
+           
+           function finAns (){
+           	   score = (corrAmu / 7) * 100;
+           	   document.getElementById("cText").innerHTML = "You Got: " + score;
+           }
+           
+           //$("#output").html(answers);
+    </script>
+
+</head>
+    <body>
+        <div class = "container">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">eFitness</a>
+                        </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html" id = "info">About Us</a></li>
+                        <li class="active"><a href="#" id = "quiz">Quiz Yourself!</a></li>
+                        <li><a href="contact.html" id = "aboutsite">Contact Us</a></li>
+                    </ul>
+                </div>
+            </nav>
+            </div>
+
+                <div class="pageheader">
+                    <div class="jumbotron">
+                        <h1>Time to Quiz yourself and see how much you've learned!</h1> 
+                        <p>Fill in the mutiple choice answers below, only one answer can be chosen per question. There are 7 questions. Good luck!</p> 
+                        <p id="cText">Instructions: Type your answer into each text box and click submit on each question! When done, click the "Submit" button on the bottom and come back up here to view your score!</p> 
+                        </div>
+                    </div>
+                    <div class="container" id="output">
+    
+    
+                    </div>
+
+        		<input type="button" value="Submit" onclick="finAns();"/>
+        </div>
+
+    </body>
+
+</html>
